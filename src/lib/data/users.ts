@@ -9,8 +9,8 @@ export const USERS: User[] = [
     nameZh: "JJ",
     avatarUrl: "/airplane.svg",
     bio: {
-      en: "Young technology professional from Canada, working in London on a YMS visa, loves to walk around Canary Wharf and explore art galleries.",
-      zh: "来自加拿大的青年科技从业者，持 YMS 签证在伦敦工作，喜欢在金丝雀码头散步、逛美术馆。",
+      en: "Young technology professional from Canada, working in London on a YMS visa, loves to walk around Canary Wharf, architecture, art galleries, and finding the best Pret a Manger sandwich.",
+      zh: "来自加拿大的青年科技从业者，持 YMS 签证在伦敦工作，喜欢在金丝雀码头散步、看建筑、逛美术馆，以及寻找最好吃的 Pret a Manger 三明治。",
     },
     interests: ["art-culture", "hiking", "photography"],
     joinedAt: "2026-06-02",

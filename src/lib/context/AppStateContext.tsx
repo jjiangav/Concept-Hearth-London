@@ -61,7 +61,7 @@ const STORAGE_KEY = "hearth-app-state";
  * user's name or avatar). Saved state from an older version is discarded rather
  * than merged, so prototype edits always show up without clearing storage.
  */
-const STATE_VERSION = 4;
+const STATE_VERSION = 5;
 
 function defaultConversationsById(): Record<string, Message[]> {
   return Object.fromEntries(
@@ -82,7 +82,7 @@ function defaultState(): AppState {
     profileDraft: {
       name: "JJ",
       avatarUrl: "/airplane.svg",
-      bio: "Young technology professional from Canada, working in London on a YMS visa, loves to walk around Canary Wharf and explore art galleries.",
+      bio: "Young technology professional from Canada, working in London on a YMS visa, loves to walk around Canary Wharf, architecture, art galleries, and finding the best Pret a Manger sandwich.",
       verified: true,
     },
     conversationsById: defaultConversationsById(),
