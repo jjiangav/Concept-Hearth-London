@@ -1,4 +1,5 @@
 import { cn, initials } from "@/lib/utils";
+import { asset } from "@/lib/basePath";
 
 type Size = "xs" | "sm" | "md" | "lg";
 
@@ -27,7 +28,7 @@ export function Avatar({ name, src, size = "md", className }: AvatarProps) {
     >
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt={name} className="w-full h-full object-cover" />
+        <img src={asset(src)} alt={name} className="w-full h-full object-cover" />
       ) : (
         initials(name)
       )}
