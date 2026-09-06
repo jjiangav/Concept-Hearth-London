@@ -131,8 +131,8 @@ export default function Conversation({ id }: { id: string }) {
                 {message.senderLabel ? (
                   <p className="mb-1 pl-1 text-[10px] italic text-hearth-charcoal-soft/80">
                     {observed
-                      ? "the box is open — the cat is definitely here"
-                      : `${message.senderLabel} sent this message`}
+                      ? `${message.senderLabel} — observed`
+                      : message.senderLabel}
                   </p>
                 ) : (
                   showSender &&
