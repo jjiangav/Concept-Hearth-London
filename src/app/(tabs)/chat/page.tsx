@@ -13,7 +13,7 @@ import { useAppState } from "@/lib/context/AppStateContext";
 import { formatMessageTime } from "@/lib/utils";
 
 export default function ChatListPage() {
-  const { t, tx, lang, getMessages } = useAppState();
+  const { t, tx, lang, getMessages, getUnreadCount } = useAppState();
 
   return (
     <>
@@ -22,6 +22,7 @@ export default function ChatListPage() {
       <ul className="divide-y divide-hearth-ink/8 pb-24">
         {CONVERSATIONS.map((conversation) => {
           const messages = getMessages(conversation.id);
+          const unread = getUnreadCount(conversation.id);
           const last = messages[messages.length - 1];
           const isGroup = isGroupConversation(conversation);
           const event = conversation.eventId
@@ -79,7 +80,13 @@ export default function ChatListPage() {
                       {!isGroup && other?.verified && <VerifiedBadge />}
                     </p>
                     {last && (
-                      <span className="shrink-0 text-[11px] text-hearth-charcoal-soft">
+                      <span
+                        className={
+                          unread > 0
+                            ? "shrink-0 text-[11px] font-semibold text-hearth-ember"
+                            : "shrink-0 text-[11px] text-hearth-charcoal-soft"
+                        }
+                      >
                         {formatMessageTime(last.sentAt, lang)}
                       </span>
                     )}
@@ -92,9 +99,27 @@ export default function ChatListPage() {
                     </p>
                   )}
 
-                  <p className="mt-0.5 truncate text-[13px] text-hearth-charcoal-soft">
-                    {last ? `${senderPrefix}${tx(last.text)}` : t("noMessages")}
-                  </p>
+                  <div className="mt-0.5 flex items-center gap-2">
+                    <p
+                      className={
+                        unread > 0
+                          ? "min-w-0 flex-1 truncate text-[13px] font-medium text-hearth-ink"
+                          : "min-w-0 flex-1 truncate text-[13px] text-hearth-charcoal-soft"
+                      }
+                    >
+                      {last
+                        ? `${senderPrefix}${tx(last.text)}`
+                        : t("noMessages")}
+                    </p>
+                    {unread > 0 && (
+                      <span
+                        aria-label={`${unread} unread`}
+                        className="flex h-5 min-w-5 shrink-0 items-center justify-center rounded-pill bg-hearth-ember px-1.5 text-[11px] font-semibold text-hearth-paper"
+                      >
+                        {unread}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </Link>
             </li>

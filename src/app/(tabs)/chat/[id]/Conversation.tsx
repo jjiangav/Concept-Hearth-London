@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -18,8 +18,15 @@ import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
 
 export default function Conversation({ id }: { id: string }) {
   const conversation = getConversationById(id);
-  const { tx, t, lang, getMessages, sendMessage } = useAppState();
+  const { tx, t, lang, getMessages, sendMessage, markConversationRead } =
+    useAppState();
   const [draft, setDraft] = useState("");
+
+  useEffect(() => {
+    markConversationRead(id);
+    // markConversationRead is stable per state update; keyed on the thread id.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   if (!conversation) notFound();
 

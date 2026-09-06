@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAppState } from "@/lib/context/AppStateContext";
+import { CONVERSATIONS } from "@/lib/data/conversations";
 import { StringKey } from "@/lib/i18n/strings";
 import { ReactNode } from "react";
 
@@ -47,7 +48,12 @@ const TABS: { href: string; key: StringKey; icon: ReactNode }[] = [
 
 export function BottomNav() {
   const pathname = usePathname();
-  const { t } = useAppState();
+  const { t, getUnreadCount } = useAppState();
+
+  const unreadTotal = CONVERSATIONS.reduce(
+    (total, conversation) => total + getUnreadCount(conversation.id),
+    0
+  );
 
   return (
     <nav className="sticky bottom-0 z-20 border-t border-hearth-ink/10 bg-hearth-cream/95 backdrop-blur">
@@ -63,18 +69,28 @@ export function BottomNav() {
                   active ? "text-hearth-ember" : "text-hearth-charcoal-soft"
                 )}
               >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={active ? 2.2 : 1.7}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {tab.icon}
-                </svg>
+                <span className="relative">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={active ? 2.2 : 1.7}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {tab.icon}
+                  </svg>
+                  {tab.href === "/chat" && unreadTotal > 0 && (
+                    <span
+                      aria-label={`${unreadTotal} unread`}
+                      className="absolute -right-2 -top-1 flex h-4 min-w-4 items-center justify-center rounded-pill bg-hearth-ember px-1 text-[10px] font-semibold text-hearth-paper"
+                    >
+                      {unreadTotal}
+                    </span>
+                  )}
+                </span>
                 {t(tab.key)}
               </Link>
             </li>

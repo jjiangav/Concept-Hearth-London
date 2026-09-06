@@ -3,9 +3,32 @@ import { CURRENT_USER_ID } from "@/lib/data/users";
 
 export const CONVERSATIONS: Conversation[] = [
   {
+    id: "conv2",
+    participantIds: [CURRENT_USER_ID, "u5"],
+    unreadCount: 1,
+    messages: [
+      {
+        id: "m8",
+        senderId: CURRENT_USER_ID,
+        text: {
+          en: "do you miss me as well?",
+          zh: "你也想我吗？",
+        },
+        sentAt: "2026-09-03T20:15:00",
+      },
+      {
+        id: "m9",
+        senderId: "u5",
+        text: { en: "meow", zh: "喵" },
+        sentAt: "2026-09-03T20:17:00",
+      },
+    ],
+  },
+  {
     id: "conv-e1",
     eventId: "e1",
     participantIds: [CURRENT_USER_ID, "u10", "u4", "u8", "u5"],
+    unreadCount: 3,
     messages: [
       {
         id: "g1",
@@ -150,27 +173,6 @@ export const CONVERSATIONS: Conversation[] = [
         senderId: CURRENT_USER_ID,
         text: { en: "Can't wait. See you Thursday!", zh: "太期待了，周四见！" },
         sentAt: "2026-09-04T18:12:00",
-      },
-    ],
-  },
-  {
-    id: "conv2",
-    participantIds: [CURRENT_USER_ID, "u5"],
-    messages: [
-      {
-        id: "m8",
-        senderId: CURRENT_USER_ID,
-        text: {
-          en: "do you miss me as well",
-          zh: "你也想我吗",
-        },
-        sentAt: "2026-09-03T20:15:00",
-      },
-      {
-        id: "m9",
-        senderId: "u5",
-        text: { en: "meow", zh: "喵" },
-        sentAt: "2026-09-03T20:17:00",
       },
     ],
   },

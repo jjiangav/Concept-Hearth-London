@@ -39,6 +39,8 @@ interface AppState {
    * shadowed by saved state.
    */
   sentMessagesById: Record<string, Message[]>;
+  /** Threads whose unread badge has been cleared by opening them. */
+  readConversationIds: string[];
 }
 
 interface AppStateContextValue extends AppState {
@@ -57,6 +59,8 @@ interface AppStateContextValue extends AppState {
   sendMessage: (conversationId: string, text: string) => void;
   /** Fixture history plus anything sent from this device. */
   getMessages: (conversationId: string) => Message[];
+  getUnreadCount: (conversationId: string) => number;
+  markConversationRead: (conversationId: string) => void;
   isEventJoined: (eventId: string) => boolean;
   isClubJoined: (clubId: string) => boolean;
 }
@@ -68,7 +72,7 @@ const STORAGE_KEY = "hearth-app-state";
  * user's name or avatar). Saved state from an older version is discarded rather
  * than merged, so prototype edits always show up without clearing storage.
  */
-const STATE_VERSION = 6;
+const STATE_VERSION = 7;
 
 function defaultState(): AppState {
   return {
@@ -87,6 +91,7 @@ function defaultState(): AppState {
       verified: true,
     },
     sentMessagesById: {},
+    readConversationIds: [],
   };
 }
 
@@ -215,6 +220,22 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         ...(getConversationById(conversationId)?.messages ?? []),
         ...(state.sentMessagesById[conversationId] ?? []),
       ],
+      getUnreadCount: (conversationId) =>
+        state.readConversationIds.includes(conversationId)
+          ? 0
+          : (getConversationById(conversationId)?.unreadCount ?? 0),
+      markConversationRead: (conversationId) =>
+        setState((prev) =>
+          prev.readConversationIds.includes(conversationId)
+            ? prev
+            : {
+                ...prev,
+                readConversationIds: [
+                  ...prev.readConversationIds,
+                  conversationId,
+                ],
+              }
+        ),
       isEventJoined: (eventId) => state.joinedEventIds.includes(eventId),
       isClubJoined: (clubId) => state.joinedClubIds.includes(clubId),
     }),

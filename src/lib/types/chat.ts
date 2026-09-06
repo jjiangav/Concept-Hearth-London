@@ -15,6 +15,8 @@ export interface Conversation {
   eventId?: string;
   /** Overrides the derived title; falls back to the event or other participant. */
   title?: LocalizedText;
+  /** Messages waiting to be read; cleared once the thread is opened. */
+  unreadCount?: number;
 }
 
 export function isGroupConversation(conversation: Conversation): boolean {
