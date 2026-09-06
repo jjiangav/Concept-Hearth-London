@@ -12,13 +12,16 @@ import { InterestPicker } from "@/components/onboarding/InterestPicker";
 import { SsoButtons } from "@/components/auth/SsoButtons";
 import { cn } from "@/lib/utils";
 
+// The first five also form the fan on the welcome screen.
 const AVATAR_CHOICES = [
-  "https://i.pravatar.cc/150?img=12",
-  "https://i.pravatar.cc/150?img=20",
-  "https://i.pravatar.cc/150?img=33",
-  "https://i.pravatar.cc/150?img=47",
+  "https://randomuser.me/api/portraits/women/90.jpg",
+  "/paddington.svg",
+  "https://randomuser.me/api/portraits/men/4.jpg",
+  "/airplane.svg",
+  "https://randomuser.me/api/portraits/women/85.jpg",
+  "https://randomuser.me/api/portraits/women/70.jpg",
+  "https://randomuser.me/api/portraits/women/44.jpg",
   "https://i.pravatar.cc/150?img=51",
-  "https://i.pravatar.cc/150?img=68",
 ];
 
 const TOTAL_STEPS = 4;
