@@ -26,6 +26,8 @@ export type AuthProvider = "wechat" | "apple" | "email" | "guest";
 interface AppState {
   lang: Lang;
   authProvider: AuthProvider | null;
+  isVip: boolean;
+  vipSince: string | null;
   joinedEventIds: string[];
   joinedClubIds: string[];
   selectedInterestIds: string[];
@@ -37,6 +39,8 @@ interface AppState {
 interface AppStateContextValue extends AppState {
   signInAs: (provider: AuthProvider) => void;
   signOut: () => void;
+  startVip: () => void;
+  endVip: () => void;
   setLang: (lang: Lang) => void;
   toggleLang: () => void;
   t: (key: StringKey) => string;
@@ -57,7 +61,7 @@ const STORAGE_KEY = "hearth-app-state";
  * user's name or avatar). Saved state from an older version is discarded rather
  * than merged, so prototype edits always show up without clearing storage.
  */
-const STATE_VERSION = 3;
+const STATE_VERSION = 4;
 
 function defaultConversationsById(): Record<string, Message[]> {
   return Object.fromEntries(
@@ -69,6 +73,8 @@ function defaultState(): AppState {
   return {
     lang: "en",
     authProvider: null,
+    isVip: false,
+    vipSince: null,
     joinedEventIds: [],
     joinedClubIds: [],
     selectedInterestIds: [],
@@ -146,6 +152,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
           ...defaultState(),
           lang: prev.lang,
         })),
+      startVip: () =>
+        setState((prev) => ({
+          ...prev,
+          isVip: true,
+          vipSince: prev.vipSince ?? new Date().toISOString(),
+        })),
+      endVip: () =>
+        setState((prev) => ({ ...prev, isVip: false, vipSince: null })),
       setLang: (lang) => setState((prev) => ({ ...prev, lang })),
       toggleLang: () =>
         setState((prev) => ({ ...prev, lang: prev.lang === "en" ? "zh" : "en" })),

@@ -46,6 +46,7 @@ export const EVENTS: EventItem[] = [
       },
     ],
     price: { en: "£20 per person", zh: "£20/人" },
+    vipPrice: { en: "£16 per person", zh: "£16/人" },
   },
   {
     id: "e2",
@@ -83,6 +84,7 @@ export const EVENTS: EventItem[] = [
       },
     ],
     price: { en: "£9.90 per person", zh: "£9.9/人" },
+    vipPrice: { en: "£7.90 per person", zh: "£7.9/人" },
   },
   {
     id: "e3",
@@ -221,6 +223,114 @@ export const EVENTS: EventItem[] = [
       { en: "Standing room, arrive by 7:45pm.", zh: "站席，建议 19:45 前到场。" },
     ],
     price: { en: "£12 per person", zh: "£12/人" },
+  },
+  {
+    id: "e8",
+    title: {
+      en: "After Hours: The Wallace Collection, Privately",
+      zh: "闭馆之后 · 华莱士典藏私享导览",
+    },
+    category: "art-culture",
+    posterUrl: "https://picsum.photos/seed/hearth-afterhours-poster/900/1200",
+    dateTime: "2026-09-24T18:45:00",
+    endTime: "2026-09-24T20:30:00",
+    location: {
+      name: { en: "The Wallace Collection", zh: "华莱士典藏馆" },
+      area: { en: "Marylebone", zh: "马里波恩" },
+    },
+    hostId: "u10",
+    attendeeIds: ["u4", "u8"],
+    capacity: 12,
+    description: {
+      en: "The galleries to ourselves after the doors close — twelve people, no crowds, a glass of something in the armoury. Members only.",
+      zh: "闭馆之后的私享时光 —— 仅十二人，没有人潮，在军械厅小酌一杯。仅限会员。",
+    },
+    highlights: [
+      {
+        en: "After-hours access, twelve places only",
+        zh: "闭馆后专场，仅十二个名额",
+      },
+      {
+        en: "Curator-led route through the Great Gallery",
+        zh: "策展人带队参观大画廊",
+      },
+      { en: "A drink in the armoury afterwards", zh: "结束后于军械厅小酌" },
+    ],
+    price: { en: "£38 per person", zh: "£38/人" },
+    vipPrice: { en: "£30 per person", zh: "£30/人" },
+    vipOnly: true,
+  },
+  {
+    id: "e9",
+    title: {
+      en: "Members' Table: Dinner at The Ivy Tower Bridge",
+      zh: "会员长桌 · The Ivy 塔桥店晚宴",
+    },
+    category: "dinner",
+    posterUrl: "https://picsum.photos/seed/hearth-ivy-poster/900/1200",
+    dateTime: "2026-09-27T19:00:00",
+    endTime: "2026-09-27T22:00:00",
+    location: {
+      name: { en: "The Ivy Tower Bridge", zh: "The Ivy 塔桥店" },
+      area: { en: "Tower Bridge", zh: "塔桥" },
+    },
+    hostId: "u9",
+    attendeeIds: ["u2", "u5"],
+    capacity: 10,
+    description: {
+      en: "One long table by the river, ten members, and the bridge lit up through the windows. Champagne on arrival, three courses, and nobody hurrying you out.",
+      zh: "临河的一张长桌，十位会员，窗外是灯火通明的塔桥。入座香槟、三道式晚餐，没有人催你离席。",
+    },
+    highlights: [
+      {
+        en: "Champagne reception with river and bridge views",
+        zh: "香槟迎宾，坐拥河景与塔桥夜色",
+      },
+      {
+        en: "Three courses from the seasonal menu, wine pairing included",
+        zh: "时令三道式晚餐，含配酒",
+      },
+      {
+        en: "Private long table — ten members, bring one guest",
+        zh: "专属长桌 —— 十位会员，可携伴一位",
+      },
+    ],
+    price: { en: "£85 per person", zh: "£85/人" },
+    vipPrice: { en: "£68 per person", zh: "£68/人" },
+    vipOnly: true,
+  },
+  {
+    id: "e10",
+    title: {
+      en: "Members' Champagne Afternoon at Sketch",
+      zh: "会员香槟午后 · Sketch",
+    },
+    category: "dinner",
+    posterUrl: "https://picsum.photos/seed/hearth-sketch-poster/900/1200",
+    dateTime: "2026-10-03T15:00:00",
+    endTime: "2026-10-03T17:00:00",
+    location: {
+      name: { en: "Sketch, The Gallery", zh: "Sketch 画廊厅" },
+      area: { en: "Mayfair", zh: "梅费尔" },
+    },
+    hostId: "u10",
+    attendeeIds: ["u4", "u8", "u2"],
+    capacity: 8,
+    description: {
+      en: "Afternoon tea in the pink room everyone photographs, with an art historian on hand to explain the David Shrigley drawings on the walls.",
+      zh: "在人人拍照的粉色厅享用下午茶，并由艺术史学者为你讲解墙上 David Shrigley 的画作。",
+    },
+    highlights: [
+      { en: "Champagne afternoon tea for eight", zh: "八人香槟下午茶" },
+      {
+        en: "A short talk on the room's artwork",
+        zh: "关于厅内艺术作品的小型导览",
+      },
+      { en: "Members only, eight places", zh: "仅限会员，八个名额" },
+    ],
+    price: { en: "£95 per person", zh: "£95/人" },
+    vipPrice: { en: "£76 per person", zh: "£76/人" },
+    vipOnly: true,
   },
 ];
 
