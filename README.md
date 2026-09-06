@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Hearth London
 
-## Getting Started
+A mobile-first frontend prototype for **The Hearth London** — a social app that helps people, especially newcomers and expats, meet in real life through gallery tours, reading groups, supper clubs, walks and live events around London.
 
-First, run the development server:
+This is a **design and interaction prototype**. All data is local TypeScript fixtures; there is no backend, no API and no real authentication.
+
+## Running it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. The layout is designed for a phone viewport (~390px) — use your browser's device toolbar.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Screens
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | What it is |
+| --- | --- |
+| `/onboarding` | Welcome → name & photo → interests → done |
+| `/login`, `/signup` | Auth mockups with WeChat / Apple SSO |
+| `/events` | Poster-grid feed with search and category filters |
+| `/events/[id]` | Poster, highlights, host, attendees, sticky join CTA |
+| `/clubs`, `/clubs/[id]` | Club browse and detail with members and posts |
+| `/chat`, `/chat/[id]` | Conversation list and threads, including event group chats |
+| `/profile` | Stats, interests, joined events and clubs |
 
-## Learn More
+## How it is put together
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js 16 (App Router) + React 19 + TypeScript.** The four tab screens live in a `(tabs)` route group sharing a bottom-nav shell; onboarding and auth sit outside it.
+- **Bilingual throughout.** An EN / 中文 toggle drives both UI labels ([`src/lib/i18n/strings.ts`](src/lib/i18n/strings.ts)) and fixture content, which is modelled as `LocalizedText { en, zh }`.
+- **State** lives in a single React context ([`AppStateContext`](src/lib/context/AppStateContext.tsx)) covering language, joined events and clubs, interests, profile and sent messages. It persists to `localStorage` under a version stamp, so changing the fixtures invalidates stale saved state instead of merging over it.
+- **Styling** is Tailwind v4 with a warm "hearth" palette and editorial gallery treatment — cream ground, ink text, gold-framed poster cards, Fraunces + Figtree with system CJK fallbacks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+  app/            routes: (tabs) shell, onboarding, login, signup
+  components/     ui primitives, plus events / clubs / chat / onboarding
+  lib/
+    data/         mock events, clubs, users, conversations, interests
+    types/        EventItem, Club, User, Conversation, LocalizedText
+    context/      AppStateContext
+    i18n/         EN + 中文 UI strings
+```
 
-## Deploy on Vercel
+## Prototype caveats
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Event and club posters are placeholders from `picsum.photos`; drop real artwork into `public/` and point the fixtures at it.
+- SSO buttons do not contact WeChat or Apple — they sign in as the fixture user after a short simulated delay.
+- Joining events, joining clubs and sending messages only affect local state.
