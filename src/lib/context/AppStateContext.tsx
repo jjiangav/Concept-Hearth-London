@@ -8,7 +8,7 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { CONVERSATIONS } from "@/lib/data/conversations";
+import { getConversationById } from "@/lib/data/conversations";
 import { CURRENT_USER_ID, getCurrentUser } from "@/lib/data/users";
 import { Message } from "@/lib/types/chat";
 import { Lang, LocalizedText, pick } from "@/lib/types/i18n";
@@ -33,7 +33,12 @@ interface AppState {
   selectedInterestIds: string[];
   hasOnboarded: boolean;
   profileDraft: ProfileDraft;
-  conversationsById: Record<string, Message[]>;
+  /**
+   * Only messages sent from this device. Seeded history always comes from the
+   * fixtures, so editing them is reflected immediately rather than being
+   * shadowed by saved state.
+   */
+  sentMessagesById: Record<string, Message[]>;
 }
 
 interface AppStateContextValue extends AppState {
@@ -50,6 +55,8 @@ interface AppStateContextValue extends AppState {
   toggleInterest: (interestId: string) => void;
   completeOnboarding: (draft: ProfileDraft) => void;
   sendMessage: (conversationId: string, text: string) => void;
+  /** Fixture history plus anything sent from this device. */
+  getMessages: (conversationId: string) => Message[];
   isEventJoined: (eventId: string) => boolean;
   isClubJoined: (clubId: string) => boolean;
 }
@@ -61,13 +68,7 @@ const STORAGE_KEY = "hearth-app-state";
  * user's name or avatar). Saved state from an older version is discarded rather
  * than merged, so prototype edits always show up without clearing storage.
  */
-const STATE_VERSION = 5;
-
-function defaultConversationsById(): Record<string, Message[]> {
-  return Object.fromEntries(
-    CONVERSATIONS.map((conversation) => [conversation.id, conversation.messages])
-  );
-}
+const STATE_VERSION = 6;
 
 function defaultState(): AppState {
   return {
@@ -85,7 +86,7 @@ function defaultState(): AppState {
       bio: "Young technology professional from Canada, working in London on a YMS visa, loves to walk around Canary Wharf, architecture, art galleries, and finding the best Pret a Manger sandwich.",
       verified: true,
     },
-    conversationsById: defaultConversationsById(),
+    sentMessagesById: {},
   };
 }
 
@@ -195,7 +196,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         })),
       sendMessage: (conversationId, text) =>
         setState((prev) => {
-          const existing = prev.conversationsById[conversationId] ?? [];
+          const existing = prev.sentMessagesById[conversationId] ?? [];
           const message: Message = {
             id: `local-${Date.now()}`,
             senderId: CURRENT_USER_ID,
@@ -204,12 +205,16 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
           };
           return {
             ...prev,
-            conversationsById: {
-              ...prev.conversationsById,
+            sentMessagesById: {
+              ...prev.sentMessagesById,
               [conversationId]: [...existing, message],
             },
           };
         }),
+      getMessages: (conversationId) => [
+        ...(getConversationById(conversationId)?.messages ?? []),
+        ...(state.sentMessagesById[conversationId] ?? []),
+      ],
       isEventJoined: (eventId) => state.joinedEventIds.includes(eventId),
       isClubJoined: (clubId) => state.joinedClubIds.includes(clubId),
     }),

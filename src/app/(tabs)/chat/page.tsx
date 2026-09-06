@@ -13,7 +13,7 @@ import { useAppState } from "@/lib/context/AppStateContext";
 import { formatMessageTime } from "@/lib/utils";
 
 export default function ChatListPage() {
-  const { t, tx, lang, conversationsById } = useAppState();
+  const { t, tx, lang, getMessages } = useAppState();
 
   return (
     <>
@@ -21,8 +21,7 @@ export default function ChatListPage() {
 
       <ul className="divide-y divide-hearth-ink/8 pb-24">
         {CONVERSATIONS.map((conversation) => {
-          const messages =
-            conversationsById[conversation.id] ?? conversation.messages;
+          const messages = getMessages(conversation.id);
           const last = messages[messages.length - 1];
           const isGroup = isGroupConversation(conversation);
           const event = conversation.eventId

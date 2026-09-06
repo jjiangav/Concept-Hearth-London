@@ -18,12 +18,12 @@ import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
 
 export default function Conversation({ id }: { id: string }) {
   const conversation = getConversationById(id);
-  const { tx, t, lang, conversationsById, sendMessage } = useAppState();
+  const { tx, t, lang, getMessages, sendMessage } = useAppState();
   const [draft, setDraft] = useState("");
 
   if (!conversation) notFound();
 
-  const messages = conversationsById[conversation.id] ?? conversation.messages;
+  const messages = getMessages(conversation.id);
   const isGroup = isGroupConversation(conversation);
   const event = conversation.eventId
     ? getEventById(conversation.eventId)
