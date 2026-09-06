@@ -160,47 +160,8 @@ export const CONVERSATIONS: Conversation[] = [
       {
         id: "m8",
         senderId: "u5",
-        text: {
-          en: "Did you get through the NERVOUS chapters for Friday?",
-          zh: "周五读书会的 NERVOUS 那几章你读完了吗？",
-        },
+        text: { en: "meow", zh: "喵" },
         sentAt: "2026-09-03T20:15:00",
-      },
-      {
-        id: "m9",
-        senderId: CURRENT_USER_ID,
-        text: {
-          en: "Two out of three. The one on discipline was harder going than I expected.",
-          zh: "读了三分之二。讲规律那章比我想的难啃。",
-        },
-        sentAt: "2026-09-03T20:20:00",
-      },
-      {
-        id: "m10",
-        senderId: "u5",
-        text: {
-          en: "That's exactly the one everyone wants to argue about. Perfect.",
-          zh: "那章正好是大家最想争论的，太好了。",
-        },
-        sentAt: "2026-09-03T20:22:00",
-      },
-      {
-        id: "m11",
-        senderId: CURRENT_USER_ID,
-        text: {
-          en: "Are we discussing in English or 中文 this week?",
-          zh: "这周是用英文还是中文讨论？",
-        },
-        sentAt: "2026-09-03T20:25:00",
-      },
-      {
-        id: "m12",
-        senderId: "u5",
-        text: {
-          en: "Both, as always — people switch mid-sentence and nobody minds.",
-          zh: "一如既往两种都用 —— 大家说着说着就切换了，没人介意。",
-        },
-        sentAt: "2026-09-03T20:26:00",
       },
     ],
   },
