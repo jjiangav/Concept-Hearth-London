@@ -3,8 +3,16 @@ import { LocalizedText } from "@/lib/types/i18n";
 export interface Message {
   id: string;
   senderId: string;
-  text: LocalizedText;
+  /**
+   * Written in whatever language the sender used — messages are never
+   * translated by the EN / 中文 toggle.
+   */
+  text: string;
   sentAt: string;
+  /** Replaces the sender caption above the bubble. */
+  senderLabel?: string;
+  /** Marks the message as interactive; see the cat in the ZZ thread. */
+  superposed?: boolean;
 }
 
 export interface Conversation {

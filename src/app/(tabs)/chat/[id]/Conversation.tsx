@@ -21,6 +21,8 @@ export default function Conversation({ id }: { id: string }) {
   const { tx, t, lang, getMessages, sendMessage, markConversationRead } =
     useAppState();
   const [draft, setDraft] = useState("");
+  // Easter egg: the cat stays in superposition until someone taps the bubble.
+  const [observed, setObserved] = useState(false);
 
   useEffect(() => {
     markConversationRead(id);
@@ -126,22 +128,42 @@ export default function Conversation({ id }: { id: string }) {
               )}
 
               <div className="max-w-[76%]">
-                {showSender && sender && (
-                  <p className="mb-1 flex items-center gap-1 pl-1 text-[11px] font-medium text-hearth-charcoal-soft">
-                    {displayName(message.senderId)}
-                    {sender.verified && <VerifiedBadge />}
+                {message.senderLabel ? (
+                  <p className="mb-1 pl-1 text-[10px] italic text-hearth-charcoal-soft/80">
+                    {observed
+                      ? "the box is open — the cat is definitely here"
+                      : `${message.senderLabel} sent this message`}
                   </p>
+                ) : (
+                  showSender &&
+                  sender && (
+                    <p className="mb-1 flex items-center gap-1 pl-1 text-[11px] font-medium text-hearth-charcoal-soft">
+                      {displayName(message.senderId)}
+                      {sender.verified && <VerifiedBadge />}
+                    </p>
+                  )
                 )}
                 <div
+                  onClick={
+                    message.superposed
+                      ? () => setObserved((prev) => !prev)
+                      : undefined
+                  }
                   className={cn(
                     "rounded-2xl px-3.5 py-2.5",
                     own
                       ? "rounded-br-md bg-hearth-ember text-hearth-paper"
-                      : "rounded-bl-md border border-hearth-ink/8 bg-hearth-paper text-hearth-ink"
+                      : "rounded-bl-md border border-hearth-ink/8 bg-hearth-paper text-hearth-ink",
+                    message.superposed && "cursor-pointer select-none",
+                    message.superposed &&
+                      observed &&
+                      "border-hearth-gold/70 bg-hearth-gold/10"
                   )}
                 >
                   <p className="text-[15px] leading-relaxed">
-                    {tx(message.text)}
+                    {message.superposed && observed
+                      ? "meow ᨏ purr"
+                      : message.text}
                   </p>
                   <p
                     className={cn(

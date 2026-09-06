@@ -72,7 +72,7 @@ const STORAGE_KEY = "hearth-app-state";
  * user's name or avatar). Saved state from an older version is discarded rather
  * than merged, so prototype edits always show up without clearing storage.
  */
-const STATE_VERSION = 7;
+const STATE_VERSION = 8;
 
 function defaultState(): AppState {
   return {
@@ -205,7 +205,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
           const message: Message = {
             id: `local-${Date.now()}`,
             senderId: CURRENT_USER_ID,
-            text: { en: text, zh: text },
+            text,
             sentAt: new Date().toISOString(),
           };
           return {

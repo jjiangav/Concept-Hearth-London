@@ -107,9 +107,7 @@ export default function ChatListPage() {
                           : "min-w-0 flex-1 truncate text-[13px] text-hearth-charcoal-soft"
                       }
                     >
-                      {last
-                        ? `${senderPrefix}${tx(last.text)}`
-                        : t("noMessages")}
+                      {last ? `${senderPrefix}${last.text}` : t("noMessages")}
                     </p>
                     {unread > 0 && (
                       <span
