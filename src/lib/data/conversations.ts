@@ -161,8 +161,8 @@ export const CONVERSATIONS: Conversation[] = [
         id: "m8",
         senderId: CURRENT_USER_ID,
         text: {
-          en: "why do I miss you so much",
-          zh: "为什么我这么想你",
+          en: "do you miss me as well",
+          zh: "你也想我吗",
         },
         sentAt: "2026-09-03T20:15:00",
       },
