@@ -159,9 +159,18 @@ export const CONVERSATIONS: Conversation[] = [
     messages: [
       {
         id: "m8",
+        senderId: CURRENT_USER_ID,
+        text: {
+          en: "why do I miss you so much",
+          zh: "为什么我这么想你",
+        },
+        sentAt: "2026-09-03T20:15:00",
+      },
+      {
+        id: "m9",
         senderId: "u5",
         text: { en: "meow", zh: "喵" },
-        sentAt: "2026-09-03T20:15:00",
+        sentAt: "2026-09-03T20:17:00",
       },
     ],
   },
