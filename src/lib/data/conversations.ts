@@ -3,27 +3,6 @@ import { CURRENT_USER_ID } from "@/lib/data/users";
 
 export const CONVERSATIONS: Conversation[] = [
   {
-    id: "conv2",
-    participantIds: [CURRENT_USER_ID, "u5"],
-    unreadCount: 1,
-    messages: [
-      {
-        id: "m8",
-        senderId: CURRENT_USER_ID,
-        text: "你也想我吗？",
-        sentAt: "2026-09-03T20:15:00",
-      },
-      {
-        id: "m9",
-        senderId: "u5",
-        text: "meow",
-        sentAt: "2026-09-03T20:17:00",
-        senderLabel: "Schrödinger's cat",
-        superposed: true,
-      },
-    ],
-  },
-  {
     id: "conv-e1",
     eventId: "e1",
     participantIds: [CURRENT_USER_ID, "u10", "u4", "u8", "u5"],

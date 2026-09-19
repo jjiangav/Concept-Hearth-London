@@ -9,10 +9,6 @@ export interface Message {
    */
   text: string;
   sentAt: string;
-  /** Replaces the sender caption above the bubble. */
-  senderLabel?: string;
-  /** Marks the message as interactive; see the cat in the ZZ thread. */
-  superposed?: boolean;
 }
 
 export interface Conversation {
